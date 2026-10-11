@@ -1,0 +1,35 @@
+package bookbot.domain;
+
+import java.util.List;
+import java.util.Map;
+
+
+public class Quiz {
+    private List<Question> collection;
+    private Map<String, String> answer;
+    private int current_idx = 0;
+
+    public boolean isFinished() {
+        return current_idx == collection.size();
+    }
+
+    public Question getCurrentQuestion() {
+        if (!isFinished()) {
+            return collection.get(current_idx);
+        }
+        return null;
+    }
+
+    public void safeAnswer(Question question, String user_answer) {
+        answer.put(question.getKey(), user_answer);
+        current_idx += 1; //как только записали текущий ответ, можем переходить к следующему
+
+    }
+
+    public Map <String, String> getAnswers() {
+        if (isFinished()) {
+            return answer;
+        }
+        return null;
+    }
+}
