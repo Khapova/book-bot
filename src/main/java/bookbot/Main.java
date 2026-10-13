@@ -73,6 +73,7 @@ public class Main {
     }
 
     private static void printBooks(RecommendationResult rec) {
+    	if (rec.getRecommendation().getBooks().isEmpty()) { System.out.println("К сожалению, ничего не нашлось"); return; }
         System.out.println();
         System.out.println("Вот что вам может понравиться:");
         for (BookData b : rec.getRecommendation().getBooks()) {
