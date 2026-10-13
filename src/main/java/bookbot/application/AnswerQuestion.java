@@ -21,7 +21,7 @@ public class AnswerQuestion {
         }
         Question question = quiz.getCurrentQuestion();
 
-        quiz.safeAnswer(question, answer);
+        quiz.safeAnswer(question, answer); //здесь может быть исключение
         storage.save(quiz);
         if (!quiz.isFinished()) {
             Question nextQuestion = quiz.getCurrentQuestion();
