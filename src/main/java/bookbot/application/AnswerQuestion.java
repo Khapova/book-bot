@@ -14,7 +14,7 @@ public class AnswerQuestion {
         this.storage = storage;
         this.recommender = recommender;
     }
-    public QuestionData run(String answer) {
+    public AnswerResult run(String answer) {
         Quiz quiz = storage.get();
         if (quiz == null) {
             throw new IllegalStateException("Quiz не найден");
@@ -25,7 +25,7 @@ public class AnswerQuestion {
         if (!quiz.isFinished()) {
             Question nextQuestion = quiz.getCurrentQuestion();
             QuestionData questionData = new QuestionData(nextQuestion);
-            return questionData;
+            return new NextQuestionResult(questionData);
         }
         else {
             Map<String, String> answers = quiz.getAnswers();
@@ -36,7 +36,7 @@ public class AnswerQuestion {
                 bookDataList.add(data);
             }
             RecommendationData recData = new RecommendationData(bookDataList);
-            return new RecommendationResults(recData);
+            return new RecommendationResult(recData);
         }
     }
 }
