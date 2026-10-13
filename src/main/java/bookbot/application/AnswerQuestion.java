@@ -20,6 +20,7 @@ public class AnswerQuestion {
             throw new IllegalStateException("Quiz не найден");
         }
         Question question = quiz.getCurrentQuestion();
+
         quiz.safeAnswer(question, answer);
         storage.save(quiz);
         if (!quiz.isFinished()) {

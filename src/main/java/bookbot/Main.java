@@ -36,6 +36,9 @@ public class Main {
             AnswerResult result;
             try {
                 result = answerQuestion.run(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+                continue;
             } catch (IllegalStateException e) {
                 System.out.println("Ошибка: " + e.getMessage());
                 continue;

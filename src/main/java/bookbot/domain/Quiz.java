@@ -18,7 +18,7 @@ public class Quiz {
         collection.add(new Question(
                 "genre",
                 "Какой жанр книги вам интересен",
-                List.of("фантастика", "детектив", "роман")
+                List.of("фантастика", "детектив", "классика")
         ));
 
         collection.add(new Question(
@@ -46,8 +46,13 @@ public class Quiz {
     }
 
     public void safeAnswer(Question question, String user_answer) {
-        answer.put(question.getKey(), user_answer);
-        current_idx += 1; //как только записали текущий ответ, можем переходить к следующему
+        if (question.isValidAnswer(user_answer)) {
+            answer.put(question.getKey(), user_answer);
+            current_idx += 1; //как только записали текущий ответ, можем переходить к следующему
+        }
+        else {
+            throw new IllegalArgumentException("Введенного ответа нет в списке вариантов");
+        }
 
     }
 
