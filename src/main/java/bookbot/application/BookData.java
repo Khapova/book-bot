@@ -7,5 +7,4 @@ public class BookData {
         this.title = title;
         this.author = author;
     }
-
 }
