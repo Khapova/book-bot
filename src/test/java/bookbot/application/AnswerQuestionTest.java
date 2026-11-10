@@ -9,7 +9,7 @@ class AnswerQuestionTest {
     @Test
     void QuizNotFound() {
         FakeQuizStorage storage = new FakeQuizStorage();
-        Recommender recommender = new Recommender(SampleBook.all());
+        Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         assertThrows(IllegalStateException.class, () -> answerQuestion.run("фантастика"));
     }
@@ -17,7 +17,7 @@ class AnswerQuestionTest {
     @Test
     void AnswerInvalid() {
         FakeQuizStorage storage = new FakeQuizStorage();
-        Recommender recommender = new Recommender(SampleBook.all());
+        Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
         storage.save(quiz);
@@ -27,7 +27,7 @@ class AnswerQuestionTest {
     @Test
     void returnNextQuestion() {
         FakeQuizStorage storage = new FakeQuizStorage();
-        Recommender recommender = new Recommender(SampleBook.all());
+        Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
         storage.save(quiz);
@@ -35,9 +35,10 @@ class AnswerQuestionTest {
         assertInstanceOf(NextQuestionResult.class, result);
     }
 
+    @Test
     void returnRecommendation() {
         FakeQuizStorage storage = new FakeQuizStorage();
-        Recommender recommender = new Recommender(SampleBook.all());
+        Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
         storage.save(quiz);
