@@ -19,6 +19,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Привет! Я бот-рекомендатель книг");
+        System.out.println("Отвечай на мои вопросы, пиши только те варианты, которые я тебе предложил");
+        System.out.println("Если тебе что-то не понравилось, и ты захотел заново начать опрос, напиши /reset");
+        System.out.println("Если тебе понадобилась помощь, напиши /help");
+        System.out.println("Удачи в поисках книг!");
+
         QuestionData first = startQuiz.run();
         printQuestion(first);
 
@@ -30,6 +36,12 @@ public class Main {
                 resetQuiz.run();
                 QuestionData q = startQuiz.run();
                 printQuestion(q);
+                continue;
+            }
+            if (input.equals("/help")) {
+                System.out.println("Отвечай на мои вопросы, пиши только те варианты, которые я тебе предложил");
+                System.out.println("Если тебе что-то не понравилось, и ты захотел заново начать опрос, напиши /reset");
+                System.out.println("Если тебе понадобилась помощь, напиши /help");
                 continue;
             }
 
