@@ -3,7 +3,6 @@ package bookbot;
 import bookbot.application.*;
 import bookbot.application.ports.BookProvider;
 import bookbot.domain.Recommender;
-import bookbot.domain.SampleBook;
 import bookbot.infrastructure.InMemoryStorage;
 import bookbot.infrastructure.SQLiteBookProvider;
 

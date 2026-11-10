@@ -2,7 +2,6 @@ package bookbot.application;
 
 import bookbot.domain.Quiz;
 import bookbot.domain.Recommender;
-import bookbot.domain.SampleBook;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
