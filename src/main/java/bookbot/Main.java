@@ -1,9 +1,11 @@
 package bookbot;
 
 import bookbot.application.*;
+import bookbot.application.ports.BookProvider;
 import bookbot.domain.Recommender;
 import bookbot.domain.SampleBook;
 import bookbot.infrastructure.InMemoryStorage;
+import bookbot.infrastructure.SQLiteBookProvider;
 
 import java.util.Scanner;
 
@@ -11,7 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         InMemoryStorage storage = new InMemoryStorage();
-        Recommender recommender = new Recommender(SampleBook.all());
+        BookProvider bookProvider = new SQLiteBookProvider();
+        Recommender recommender = new Recommender(bookProvider.getAllBooks());
 
         StartQuiz startQuiz = new StartQuiz(storage);
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
