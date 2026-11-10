@@ -1,5 +1,6 @@
 package bookbot.domain;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 class RecommenderTest {
 
     @Test
+    @DisplayName("Проверка 2 из 3 совпадений")
     void bookWithTwoMatches() {
         Book book = new Book("Дюна", "Герберт",
             Map.of("genre", "фантастика", "size", "длинная", "complexity", "сложная"),
@@ -28,6 +30,7 @@ class RecommenderTest {
     }
 
     @Test
+    @DisplayName("Проверка 1/3 совпадений - пустая рекомендация")
     void bookWithOneMatch() {
         Book book = new Book("Дюна", "Герберт",
             Map.of("genre", "фантастика", "size", "длинная", "complexity", "сложная"),
@@ -46,6 +49,7 @@ class RecommenderTest {
     }
 
     @Test
+    @DisplayName("Рекомендация строго 3 книги")
     void onlyTopThree() {
         List<Book> books = List.of(
             new Book("К1", "А", Map.of("genre", "фантастика", "size", "средняя", "complexity", "простая"), ""),
@@ -68,6 +72,7 @@ class RecommenderTest {
     }
 
     @Test
+    @DisplayName("Нет совпадений - пустая рекомендация")
     void emptyWhenNoMatch() {
         Book book = new Book("Дюна", "Герберт",
             Map.of("genre", "фантастика", "size", "длинная", "complexity", "сложная"),

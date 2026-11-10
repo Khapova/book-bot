@@ -1,10 +1,12 @@
 package bookbot.application;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StartQuizTest {
     @Test
+    @DisplayName("Проверка сохранения квиза")
             void savesQuiz() {
         FakeQuizStorage storage = new FakeQuizStorage();
         StartQuiz startQuiz = new StartQuiz(storage);
@@ -15,6 +17,7 @@ class StartQuizTest {
     }
 
     @Test
+    @DisplayName("Возвращает первый вопрос")
     void returnFirstQuestion() {
         FakeQuizStorage storage = new FakeQuizStorage();
         StartQuiz startQuiz = new StartQuiz(storage);

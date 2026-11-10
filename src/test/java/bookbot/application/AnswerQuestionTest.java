@@ -2,11 +2,13 @@ package bookbot.application;
 
 import bookbot.domain.Quiz;
 import bookbot.domain.Recommender;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnswerQuestionTest {
     @Test
+    @DisplayName("Если Quiz не найден, бросает исключение")
     void QuizNotFound() {
         FakeQuizStorage storage = new FakeQuizStorage();
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
@@ -15,6 +17,7 @@ class AnswerQuestionTest {
     }
 
     @Test
+    @DisplayName("Если пользователь ввел неправильный вариант, бросает исключение")
     void AnswerInvalid() {
         FakeQuizStorage storage = new FakeQuizStorage();
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
@@ -25,6 +28,7 @@ class AnswerQuestionTest {
     }
 
     @Test
+    @DisplayName("Возвращает нужный класс, если опрос еще не закончен")
     void returnNextQuestion() {
         FakeQuizStorage storage = new FakeQuizStorage();
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
@@ -36,6 +40,7 @@ class AnswerQuestionTest {
     }
 
     @Test
+    @DisplayName("Возвращает рекомендацию, если опрос закончен")
     void returnRecommendation() {
         FakeQuizStorage storage = new FakeQuizStorage();
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
