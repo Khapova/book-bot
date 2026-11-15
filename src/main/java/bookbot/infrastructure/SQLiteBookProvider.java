@@ -30,7 +30,10 @@ public class SQLiteBookProvider implements BookProvider {
                 tags.put("size", result.getString("size"));
                 tags.put("complexity", result.getString("complexity"));
 
-                books.add(new Book(title, author, tags, ""));
+                Book book = Book.tryCreate(title, author, tags, "");
+                if (book != null) {
+                    books.add(book);
+                }
             }
         }
         catch (SQLException e) {

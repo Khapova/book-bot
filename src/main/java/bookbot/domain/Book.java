@@ -14,6 +14,13 @@ public class Book {
         this.tags = tags;
         this.description = description;
     }
+
+    public static Book tryCreate( String title, String author, Map<String, String> tags, String description) {
+        if (title == null || title.isEmpty() || author == null || author.isEmpty() || tags == null || tags.isEmpty()) {
+            return null;
+        }
+        return new Book(title, author, tags, description);
+    }
     
     public String getTitle() {
     	return title;
