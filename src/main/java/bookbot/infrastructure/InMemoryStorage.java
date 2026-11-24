@@ -3,18 +3,22 @@ package bookbot.infrastructure;
 import bookbot.application.ports.QuizStateStorage;
 import bookbot.domain.Quiz;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class InMemoryStorage implements QuizStateStorage {
-    private Quiz quiz;
+    private final Map<Long, Quiz> storage = new HashMap<>();
 
-    public void save(Quiz quiz) {
-        this.quiz = quiz;
+    @Override
+    public void save(long userId, Quiz quiz) {
+        storage.put(userId, quiz);
     }
 
-    public Quiz get() {
-        return quiz;
+    public Quiz get(long userId) {
+        return storage.get(userId);
     }
 
-    public void delete() {
-        quiz = null;
+    public void delete(long userId) {
+        storage.remove(userId);
     }
 }
