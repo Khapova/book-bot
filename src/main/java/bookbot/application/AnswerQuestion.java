@@ -14,15 +14,15 @@ public class AnswerQuestion {
         this.storage = storage;
         this.recommender = recommender;
     }
-    public AnswerResult run(String answer) {
-        Quiz quiz = storage.get();
+    public AnswerResult run(long userId, String answer) {
+        Quiz quiz = storage.get(userId);
         if (quiz == null) {
             throw new IllegalStateException("Quiz не найден");
         }
         Question question = quiz.getCurrentQuestion();
 
         quiz.safeAnswer(question, answer); //здесь может быть исключение
-        storage.save(quiz);
+        storage.save(userId, quiz);
         if (!quiz.isFinished()) {
             Question nextQuestion = quiz.getCurrentQuestion();
             QuestionData questionData = new QuestionData(nextQuestion);
