@@ -10,9 +10,9 @@ public class StartQuiz {
         this.storage = storage;
     }
 
-    public QuestionData run() {
+    public QuestionData run(long userId) {
         Quiz quiz = new Quiz();
-        storage.save(quiz);
+        storage.save(userId, quiz);
         Question currentQuestion = quiz.getCurrentQuestion();
         QuestionData question = new QuestionData(currentQuestion);
         return question;

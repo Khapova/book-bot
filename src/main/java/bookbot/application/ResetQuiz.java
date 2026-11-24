@@ -7,7 +7,7 @@ public class ResetQuiz {
     public ResetQuiz(QuizStateStorage storage) {
         this.storage = storage;
     }
-    public void run() {
-        storage.delete();
+    public void run(long userId) {
+        storage.delete(userId);
     }
 }
