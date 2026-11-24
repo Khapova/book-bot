@@ -3,8 +3,10 @@ package bookbot.presentation.telegram;
 import bookbot.application.*;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.AnswerCallbackQuery;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.model.request.InlineKeyboardButton; 
 
 public class TelegramBotHandler {
     private final com.pengrad.telegrambot.TelegramBot bot;
@@ -69,6 +71,30 @@ public class TelegramBotHandler {
             }
         }
 
+    }
+    
+    
+    private void sendQuestion(long userId, QuestionData questionData) {
+    	InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
+    	
+    	for (String option : questionData.getOptions()) {
+    		InlineKeyboardButton button = new InlineKeyboardButton(option).callbackData(option);
+    		keyboard.addRow(button);
+    		
+    	}
+    	SendMessage message = new SendMessage(userId, questionData.getText());
+        message.replyMarkup(keyboard);
+        bot.execute(message);
+    }
+    
+    private void sendRecommendation(long userId, RecommendationResult result) {
+    	StringBuilder text = new StringBuilder("Вот что вам может понравиться:\n\n");
+    	
+    	for (BookData book : result.getRecommendation().getBooks()) {
+    		text.append(book.getTitle()).append(" — ").append(book.getAuthor()).append("\n\n");
+    	}
+    	text.append("Чтобы начать заново, напишите /start");
+    	bot.execute(new SendMessage(userId, text.toString()));
     }
 
 }
