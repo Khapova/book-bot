@@ -10,10 +10,10 @@ class StartQuizTest {
             void savesQuiz() {
         FakeQuizStorage storage = new FakeQuizStorage();
         StartQuiz startQuiz = new StartQuiz(storage);
-        startQuiz.run();
+        startQuiz.run(1L);
 
         assertEquals(1, storage.getSaveCount());
-        assertNotNull(storage.get());
+        assertNotNull(storage.get(1L));
     }
 
     @Test
@@ -21,7 +21,7 @@ class StartQuizTest {
     void returnFirstQuestion() {
         FakeQuizStorage storage = new FakeQuizStorage();
         StartQuiz startQuiz = new StartQuiz(storage);
-        QuestionData result = startQuiz.run();
+        QuestionData result = startQuiz.run(1L);
 
         assertNotNull(result);
         assertFalse(result.getText().isEmpty());

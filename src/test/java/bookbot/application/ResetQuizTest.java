@@ -11,10 +11,10 @@ class ResetQuizTest {
     void deleteQuiz() {
         FakeQuizStorage storage = new FakeQuizStorage();
         Quiz quiz = new Quiz();
-        storage.save(quiz);
+        storage.save(1L, quiz);
         ResetQuiz reset = new ResetQuiz(storage);
-        reset.run();
+        reset.run(1L);
         assertEquals(1, storage.getSaveDelete());
-        assertNull(storage.get());
+        assertNull(storage.get(1L));
     }
 }

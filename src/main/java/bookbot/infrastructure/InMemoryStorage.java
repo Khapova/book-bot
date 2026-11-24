@@ -13,11 +13,12 @@ public class InMemoryStorage implements QuizStateStorage {
     public void save(long userId, Quiz quiz) {
         storage.put(userId, quiz);
     }
-
+    @Override
     public Quiz get(long userId) {
         return storage.get(userId);
     }
 
+    @Override
     public void delete(long userId) {
         storage.remove(userId);
     }

@@ -13,7 +13,7 @@ class AnswerQuestionTest {
         FakeQuizStorage storage = new FakeQuizStorage();
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
-        assertThrows(IllegalStateException.class, () -> answerQuestion.run("фантастика"));
+        assertThrows(IllegalStateException.class, () -> answerQuestion.run(1L,"фантастика"));
     }
 
     @Test
@@ -23,8 +23,8 @@ class AnswerQuestionTest {
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
-        storage.save(quiz);
-        assertThrows(IllegalArgumentException.class, () -> answerQuestion.run("нет такого варианта ответа"));
+        storage.save(1L, quiz);
+        assertThrows(IllegalArgumentException.class, () -> answerQuestion.run(1L, "нет такого варианта ответа"));
     }
 
     @Test
@@ -34,8 +34,8 @@ class AnswerQuestionTest {
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
-        storage.save(quiz);
-        AnswerResult result = answerQuestion.run("фантастика");
+        storage.save(1L, quiz);
+        AnswerResult result = answerQuestion.run(1L, "фантастика");
         assertInstanceOf(NextQuestionResult.class, result);
     }
 
@@ -46,11 +46,29 @@ class AnswerQuestionTest {
         Recommender recommender = new Recommender(TestBooks.getSampleBooks());
         AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
         Quiz quiz = new Quiz();
-        storage.save(quiz);
-        answerQuestion.run("фантастика");
-        answerQuestion.run("средняя");
-        AnswerResult result = answerQuestion.run("длинная");
+        storage.save(1L, quiz);
+        answerQuestion.run(1L, "фантастика");
+        answerQuestion.run(1L, "средняя");
+        AnswerResult result = answerQuestion.run(1L, "длинная");
         assertInstanceOf(RecommendationResult.class, result);
+
+    }
+
+    @Test
+    @DisplayName("Ответы разных пользователей не влияют друг на друга")
+    void userDontMixed() {
+        FakeQuizStorage storage = new FakeQuizStorage();
+        Recommender recommender = new Recommender(TestBooks.getSampleBooks());
+        AnswerQuestion answerQuestion = new AnswerQuestion(storage, recommender);
+
+        storage.save(1L, new Quiz());
+        storage.save(2L, new Quiz());
+
+        answerQuestion.run(1L, "фантастика");
+
+        assertEquals(1, storage.get(1L).getCurrent_idx());
+        assertEquals(0, storage.get(2L).getCurrent_idx());
+
 
     }
 }

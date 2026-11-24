@@ -62,4 +62,8 @@ public class Quiz {
         }
         return null;
     }
+
+    public int getCurrent_idx() {
+        return current_idx;
+    }
 }
