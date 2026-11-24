@@ -51,7 +51,7 @@ public class TelegramBotHandler {
             }
         }
         if (update.callbackQuery() != null) {
-            long userId = update.message().from().id();
+            long userId = update.callbackQuery().from().id();
             String answer = update.callbackQuery().data();
 
             bot.execute(new AnswerCallbackQuery(update.callbackQuery().id()));
