@@ -38,6 +38,9 @@ public class TelegramBotHandler {
             String text = update.message().text();
 
             if (text.equals("/start")) {
+                String greeting = "Привет, я бот-рекомендатель!";
+                bot.execute(new SendMessage(userId, greeting));
+                extracted(userId);
                 QuestionData questionData = startQuiz.run(userId);
                 sendQuestion(userId, questionData);
             }
@@ -45,6 +48,9 @@ public class TelegramBotHandler {
                 resetQuiz.run(userId);
                 QuestionData questionData = startQuiz.run(userId);
                 sendQuestion(userId, questionData);
+            }
+            else if (text.equals("/help")) {
+                extracted(userId);
             }
             else {
                 bot.execute(new SendMessage(userId, "Пожалуйста, используйте кнопки для ответа"));
@@ -95,6 +101,13 @@ public class TelegramBotHandler {
     	}
     	text.append("Чтобы начать заново, напишите /start");
     	bot.execute(new SendMessage(userId, text.toString()));
+    }
+
+    private void extracted(long userId) {
+        String text = "Отвечай на мои вопросы, пиши только те варианты, которые я тебе предложил\n" +
+        "Если тебе что-то не понравилось, и ты захотел заново начать опрос, напиши /reset\n" +
+        "Если тебе понадобилась помощь, напиши /help\n";
+        bot.execute(new SendMessage(userId, text));
     }
 
 }
